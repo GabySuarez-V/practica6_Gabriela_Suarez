@@ -1,5 +1,5 @@
-//Previo6: Carga de modelos 3D		Suarez Velasco Gabriela
-// Fecha de entrega : 07 de marzo de 2025		317313521
+//Practica6: Carga de modelos 3D		Suarez Velasco Gabriela
+// Fecha de entrega : 14 de marzo de 2025		317313521
 
 
 // Std. Includes
@@ -98,7 +98,12 @@ int main( )
     Shader shader( "Shader/modelLoading.vs", "Shader/modelLoading.frag" );
     
     // Load models
-    Model dog((char*)"Models/RedDog.obj");
+    Model dog((char*)"Models/RedDog.obj"); 
+    Model Astronauta((char*)"Models/Astronauta.obj"); 
+    Model asteroide((char*)"Models/asteroide.obj"); 
+    Model Nane((char*)"Models/Nane.obj"); 
+    Model Alien((char*)"Models/Alien.obj");
+    Model Marte((char*)"Models/Marte.obj");
     glm::mat4 projection = glm::perspective( camera.GetZoom( ), ( float )SCREEN_WIDTH/( float )SCREEN_HEIGHT, 0.1f, 100.0f );
     
   
@@ -116,7 +121,7 @@ int main( )
         DoMovement();
 
         // Clear the colorbuffer
-        glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+        glClearColor(0.961f, 0.851f, 0.408f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         shader.Use();
@@ -128,16 +133,45 @@ int main( )
         // Draw the loaded model
         glm::mat4 model(1);
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        dog.Draw(shader);
-
-        //a partir de aqui tambien le fui modificando (PARA HACER UN SEUNDO PERRITO)
-        model = glm::translate(model, glm::vec3(3.0f, 0.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+       dog.Draw(shader);
+       
+       // /*//a partir de aqui tambien le fui modificando (PARA HACER UN SEUNDO PERRITO)
+       // model = glm::translate(model, glm::vec3(3.0f, 0.0f, 0.0f));
+       // model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+       // glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+       // dog.Draw(shader); */
+       // 
+        // Astronauta
+        model = glm::translate(model, glm::vec3(0.60f, 0.0f, 0.5f));
+        model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        dog.Draw(shader);
+        Astronauta.Draw(shader);
         
+        // asteroide
+        model = glm::translate(model, glm::vec3(-33.0f, 30.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        asteroide.Draw(shader); 
+       
+        // Nane
+        model = glm::translate(model, glm::vec3(55.0f, 15.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        Nane.Draw(shader); 
 
-        // Swap the buffers
+        //Alien
+        model = glm::translate(model, glm::vec3(-55.0f, -55.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.25f, 0.25f, 0.25f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        Alien.Draw(shader);
+
+        //Marte
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(20.0f, 0.50f, 20.0f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        Marte.Draw(shader);
+
+        // Swap the bufferssd
         glfwSwapBuffers( window );
     }
     
